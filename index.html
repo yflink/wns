@@ -108,11 +108,7 @@
               <input type="text" class="input" name="imageLocation" v-model="imageLocation">
             </div>
 
-            <!-- peerID -->
-            <div class="field">
-              <label class="label" style="color: #636363">peerID</label>
-              <input type="text" class="input" name="peerID" v-model="peerID" required>
-            </div>
+            
 
             <!-- submit button -->
             <div class="field has-text-right">
@@ -135,7 +131,6 @@
           <thead>
             <tr>
               <th style="font-size:1vw;">Handle</th>
-              <th style="font-size:1vw;">peerId</th>
               <th style="font-size:1vw;">Owner</th>
             </tr>
           </thead>
@@ -150,7 +145,6 @@
           <thead>
             <tr>
               <th style="font-size:1vw;">Handle</th>
-              <th style="font-size:1vw;">peerId</th>
             </tr>
           </thead>
           <tbody>
@@ -176,8 +170,7 @@ if (typeof web3 !== 'undefined') {
   web3.version.getNetwork((err, netId) => {
   switch (netId) {
     case "1":
-      console.log('This is mainnet. Please switch to rinkeby');
-      alert('This is mainnet. Please switch to rinkeby');
+      start();
       break
     case "2":
       console.log('This is the deprecated Morden test network. Please switch to rinkeby');
@@ -192,7 +185,8 @@ if (typeof web3 !== 'undefined') {
       alert('This is the kovan test network. Please switch to rinkeby');
       break  
     case "4":
-      start();
+      console.log('This is the Rinkeby test network. Please switch to mainnet');
+      alert('This is the Rinkeby test network. Please switch to mainnet');
       break
     default:
       console.log('This is an unknown network.Please switch to rinkeby');
@@ -209,9 +203,9 @@ if (typeof web3 !== 'undefined') {
   function start(){
     // Initialise WORFNS contract
   //// ABI
-  let worfnsContractABI = web3.eth.contract([{ "constant": false, "inputs": [{ "name": "handle", "type": "string" }, { "name": "newName", "type": "string" }], "name": "changeDisplayName", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "handle", "type": "string" }, { "name": "_displayName", "type": "string" }, { "name": "_imageLocation", "type": "string" }, { "name": "_peerId", "type": "string" }], "name": "createHandle", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "handle", "type": "string" }, { "name": "peerId", "type": "string" }], "name": "changePeerId", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "owner", "type": "address" }, { "name": "handle", "type": "string" }, { "name": "_displayName", "type": "string" }, { "name": "_imageLocation", "type": "string" }, { "name": "_peerId", "type": "string" }], "name": "addHandle", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "address" }], "name": "superUsers", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "handle", "type": "string" }], "name": "isHandleAvailable", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "handle", "type": "string" }], "name": "removeHandle", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "handleName", "type": "string" }], "name": "getHandleInfo", "outputs": [{ "name": "owner", "type": "address" }, { "name": "handle", "type": "string" }, { "name": "displayName", "type": "string" }, { "name": "imageLocation", "type": "string" }, { "name": "peerId", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "handle", "type": "string" }, { "name": "newImageLocation", "type": "string" }], "name": "changeImageLocation", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "handle", "type": "string" }, { "name": "newOwner", "type": "address" }], "name": "transferOwnership", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "name": "_superUsers", "type": "address[]" }], "payable": false, "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": false, "name": "handle", "type": "string" }, { "indexed": false, "name": "peerId", "type": "string" }, { "indexed": true, "name": "owner", "type": "address" }], "name": "NewHandle", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "name": "handle", "type": "string" }, { "indexed": false, "name": "displayName", "type": "string" }], "name": "NewDisplayName", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "name": "handle", "type": "string" }, { "indexed": false, "name": "imageLocation", "type": "string" }], "name": "NewImageLocation", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "name": "handle", "type": "string" }, { "indexed": false, "name": "peerId", "type": "string" }], "name": "NewPeerId", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "name": "handle", "type": "string" }, { "indexed": true, "name": "newOwner", "type": "address" }], "name": "OwnershipTransferred", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "name": "handle", "type": "string" }], "name": "HandleRemoved", "type": "event" }])
+  let worfnsContractABI = web3.eth.contract([{"inputs":[{"internalType":"address[]","name":"_superUsers","type":"address[]"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"string","name":"handle","type":"string"}],"name":"HandleRemoved","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"string","name":"handle","type":"string"},{"indexed":false,"internalType":"string","name":"displayName","type":"string"}],"name":"NewDisplayName","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"string","name":"handle","type":"string"},{"indexed":false,"internalType":"bytes","name":"data","type":"bytes"},{"indexed":true,"internalType":"address","name":"owner","type":"address"}],"name":"NewHandle","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"string","name":"handle","type":"string"},{"indexed":false,"internalType":"string","name":"imageLocation","type":"string"}],"name":"NewImageLocation","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"string","name":"handle","type":"string"},{"indexed":false,"internalType":"bytes","name":"data","type":"bytes"}],"name":"NewPeerId","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"string","name":"handle","type":"string"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"string","name":"handle","type":"string"},{"internalType":"string","name":"_displayName","type":"string"},{"internalType":"string","name":"_imageLocation","type":"string"},{"internalType":"bytes","name":"_data","type":"bytes"}],"name":"addHandle","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"handle","type":"string"},{"internalType":"string","name":"newName","type":"string"}],"name":"changeDisplayName","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"handle","type":"string"},{"internalType":"string","name":"newImageLocation","type":"string"}],"name":"changeImageLocation","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"handle","type":"string"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"changePeerId","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"handle","type":"string"},{"internalType":"string","name":"_displayName","type":"string"},{"internalType":"string","name":"_imageLocation","type":"string"},{"internalType":"bytes","name":"_data","type":"bytes"}],"name":"createHandle","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"handleName","type":"string"}],"name":"getHandleInfo","outputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"string","name":"handle","type":"string"},{"internalType":"string","name":"displayName","type":"string"},{"internalType":"string","name":"imageLocation","type":"string"},{"internalType":"bytes","name":"data","type":"bytes"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"handle","type":"string"}],"name":"isHandleAvailable","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"handle","type":"string"}],"name":"removeHandle","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"superUsers","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"handle","type":"string"},{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"}])
   //// Contract address
-  let worfnsContract = worfnsContractABI.at('0xd81a7e253f7364e574dfa496a14149a89ab2d8b8');
+  let worfnsContract = worfnsContractABI.at('0x905ce42a8bbbad81ae3cc89867fadd22b3b32c98');
 
   // Search for a handle
   const search = new Vue({
@@ -232,7 +226,7 @@ if (typeof web3 !== 'undefined') {
         worfnsContract.getHandleInfo(searchQuery, function (err, result) {
           if (result && result.constructor === Array && result[4] !== "") {
             console.log(JSON.stringify(result));
-            alert('The peerID for ' + result[1] + ' is: ' + result[4])
+            alert('The display name for ' + result[1] + ' is: ' + result[2])
           } else {
             alert('Handle not found. If you just registered your handle, it make take a minute or so to update.');
           }
@@ -250,7 +244,7 @@ if (typeof web3 !== 'undefined') {
       handle: '',
       displayName: '',
       imageLocation: '',
-      peerID: ''
+      data: '0x'
     },
 
     // our methods
@@ -260,15 +254,14 @@ if (typeof web3 !== 'undefined') {
         let handle = this.handle;
         let displayName = this.displayName;
         let imageLocation = this.imageLocation;
-        let peerID = this.peerID;
 
         
-        console.log("Data check =>", { handle, displayName, imageLocation, peerID });
+        console.log("Data check =>", { handle, displayName, imageLocation });
 
         worfnsContract.isHandleAvailable(this.handle, function (err, result) {
           if (result) {
             console.log('Great news, handle is available!');
-            worfnsContract.createHandle(handle, displayName, imageLocation, peerID, function (err, result) {
+            worfnsContract.createHandle(handle, displayName, imageLocation, "0x", function (err, result) {
               if (result) {
                 alert('Handle registered!');
               } else {
@@ -285,16 +278,14 @@ if (typeof web3 !== 'undefined') {
   });
 
   // Display the latest registered handles
-  var newHandleEvent = worfnsContract.NewHandle({}, { fromBlock: 2898449, toBlock: 'latest' });
+  var newHandleEvent = worfnsContract.NewHandle({}, { fromBlock: 11455830, toBlock: 'latest' });
   newHandleEvent.watch(function (error, result) {
     console.log("Event fired", error, result);
 
     if(!error){
       var handle = result.args.handle;
-      var peerId = result.args.peerId;
       var owner = result.args.owner;
 
-      if (peerId.length > 0) {
         totalHandleCount = totalHandleCount + 1;
         if(totalHandleCount > 20){
           $('#row' +rowToRemoveFromLatestTable).remove();
@@ -305,20 +296,17 @@ if (typeof web3 !== 'undefined') {
 
         var $tr = $('<tr id =row' +totalHandleCount+ '>').append(
           $('<td style="font-size:1vw;">').text(handle),
-          $('<td style="font-size:1vw;">').text(peerId),
           $('<td style="font-size:1vw;">').text(owner),
         ).appendTo('#handlesTable');
 
         if(owner == web3.eth.accounts[0]){
          var $tr = $('<tr>').append(
           $('<td style="font-size:1vw;">').text(handle),
-          $('<td style="font-size:1vw;">').text(peerId),
+          $('<td style="font-size:1vw;">').text(owner),
         ).appendTo('#myHandlesTable');
         }
-      }
-      else{
-        console.log("Peer Id missing for handle", handle);
-      }
+      
+      
     }else {
       console.log('Handle not found');
     }

@@ -1,0 +1,23 @@
+{
+  "name": "wns",
+  "version": "1.0.0",
+  "description": "<img src=\"https://user-images.githubusercontent.com/3887694/44699339-1017a900-aac7-11e8-8525-0133cbcd457b.png\" width=\"400\" />",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yflink/wns.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yflink/wns/issues"
+  },
+  "homepage": "https://github.com/yflink/wns#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "path": "^0.12.7"
+  }
+}
